@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Store</title>
+</head>
+<body>
+
+<h1>Medical Products</h1>
+
+<div id="products"></div>
+
+<script>
+fetch('/api/products/')
+.then(res => res.json())
+.then(data => {
+    let html = '';
+    data.forEach(product => {
+        html += `
+            <div>
+                <img src="/media/${product.image}" width="100">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>Price: ${product.price}</p>
+                <hr>
+            </div>
+        `;
+    });
+    document.getElementById('products').innerHTML = html;
+});
+</script>
+
+</body>
+</html>
