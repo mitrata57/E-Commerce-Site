@@ -21,12 +21,30 @@ fetch('/api/products/')
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
                 <p>Price: ${product.price}</p>
+                <button onclick="addToCart(${product.id})">
+                     Add to Cart
+                </button>
                 <hr>
             </div>
         `;
     });
     document.getElementById('products').innerHTML = html;
 });
+
+function addToCart(id) {
+  fetch('/api/cart/add/', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      product_id: id,
+      quantity: 1
+    })
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message));
+}
 </script>
 
 </body>
